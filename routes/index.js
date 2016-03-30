@@ -18,6 +18,15 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 
+	//Since we are not requiring every field, let's
+	//something something req.body
+
+	for (var att in req.body) {
+		if (req.body[att] === '') {
+			delete(req.body[att]);
+		}
+	}
+
 	//Create new Bird object from req.body
 	var newSighting = Bird(req.body);
 

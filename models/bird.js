@@ -7,11 +7,26 @@ some other information.
 */
 
 var birdSchema = new Schema({
-  name : String,
+  name : {
+	  type: String,
+	  required: true,
+	  unique: true,
+	  lowercase: true //convert to lowercase - helpfu
+  },
   description : String,
-  averageEggsLaid : Number, //Handles both integer and floats
-  threatened : Boolean, // Is bird vulnerable to extinction?
-  dateSeen : Date // Date spotted in the wild
+  averageEggsLaid : {
+	  type: Number,
+	  min: 1,
+	  max: 50
+  }, //Handles both integer and floats
+  threatened : {
+	  type: Boolean,
+	  default: false
+  }, // Is bird vulnerable to extinction?
+  dateSeen : {
+	  type: Date,
+	  default: Date.now
+  } // Date spotted in the wild
 });
 
 var Bird = mongoose.model('Bird', birdSchema);
