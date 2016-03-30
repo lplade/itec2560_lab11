@@ -23,10 +23,10 @@ var birdSchema = new Schema({
 	  type: Boolean,
 	  default: false
   }, // Is bird vulnerable to extinction?
-  dateSeen : {
+  datesSeen : [{
 	  type: Date,
 	  default: Date.now
-  } // Date spotted in the wild
+  }] // Date spotted in the wild
 });
 
 var Bird = mongoose.model('Bird', birdSchema);

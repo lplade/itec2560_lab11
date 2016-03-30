@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -13,6 +15,9 @@ var users = require('./routes/users');
 var db = mongoose.connect('mongodb://localhost:27017/birdrecords');
 
 var app = express();
+
+app.use(session( { 'secret' : 'something random'}));
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

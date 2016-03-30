@@ -10,12 +10,25 @@ block content
 			p Average Eggs Laid: #{bird.averageEggsLaid}
 			if bird.threatened
 				p This bird is threatened
-			p Dates seen: #{bird.dateSeen}
+			p Dates seen:
+				ul
+					for date in bird.datesSeen
+						li #{date}
+			form(action="/addDate", method="POST")
+
+				label Add new date seen
+					input(name="dateSeen" type="date" required)
+				input(name="name" value="#{bird.name}" type="hidden")
+				input(name="addDate" type="submit" value="Add new date")
 
 			hr
 
 	.addNewSighting
-		form(submit='/', method='POST')
+
+		if error
+			p #{error}
+
+		form(action='/', method='POST')
 			label Name (required)
 				input(name="name" type="text" required)
 			br
@@ -29,6 +42,6 @@ block content
 				input(name="threatened" type="checkbox")
 			br
 			label Date seen (required)
-				input(name="dateSeen" type="date")
+				input(name="dateSeen" type="date" required)
 			br
 			input(type="submit" name="addBird" value="Add new sighting")
