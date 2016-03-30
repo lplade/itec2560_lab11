@@ -34,6 +34,12 @@ router.post('/', function (req, res, next) {
 	req.body.datesSeen = [];
 	req.body.datesSeen.push(date);
 
+	//Build nested nestData
+	req.body.nestData = {
+		'location' : req.body.location,
+		'materials' : req.body.materials
+	};
+
 	//Create new Bird object from req.body
 	var newSighting = Bird(req.body);
 	//And request that it is saved. Use callback to verify success

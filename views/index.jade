@@ -8,6 +8,8 @@ block content
 			p Name: #{bird.name}
 			p Description: #{bird.description}
 			p Average Eggs Laid: #{bird.averageEggsLaid}
+			p Nest location #{bird.nestData.location}
+			p Nest Materials #{bird.nestData.materials}
 			if bird.threatened
 				p This bird is threatened
 			p Dates seen:
@@ -40,6 +42,11 @@ block content
 			br
 			label Threatened?
 				input(name="threatened" type="checkbox")
+			br
+			label Nest location
+				input(name="location" type="text")
+			label Nest materials
+				input(name="materials" type="text")
 			br
 			label Date seen (required)
 				input(name="dateSeen" type="date" required)
