@@ -1,35 +1,34 @@
 extends layout
 
 block content
-  h1 Bird records
+	h1 Bird records
 
-  .birdsSeen
-    for bird in birds
-      p Name: #{bird.name}
-      p Description: #{bird.description}
-      p Average Eggs Laid: #{bird.averageEggsLaid}
-      if bird.threatened
-        p This bird is threatened
-      p Dates seen: #{bird.dateSeen}
-      
-      hr
+	.birdsSeen
+		for bird in birds
+			p Name: #{bird.name}
+			p Description: #{bird.description}
+			p Average Eggs Laid: #{bird.averageEggsLaid}
+			if bird.threatened
+				p This bird is threatened
+			p Dates seen: #{bird.dateSeen}
 
-  .addNewSighting
+			hr
 
-    form(submit='/', method='POST')
-      label Name (required)
-        input(label="name" name="name" type="text" required)
-      br
-      label Description
-        input(name="description" type="text")
-      br
-      label Average Eggs
-        input(name="averageEggsLaid" type="number", min="0")
-      br
-      label Threatened?
-        input(name="threatened" type="checkbox")
-      br
-      label Date seen (required)
-        input(label="Date seen" name="dateSeen" type="date")
-      br
-      input(type="submit" name="addBird" value="Add new sighting")
+	.addNewSighting
+		form(submit='/', method='POST')
+			label Name (required)
+				input(name="name" type="text" required)
+			br
+			label Description
+				input(name="description" type="text")
+			br
+			label Average Eggs
+				input(name="averageEggsLaid" type="number", min="0")
+			br
+			label Threatened?
+				input(name="threatened" type="checkbox")
+			br
+			label Date seen (required)
+				input(name="dateSeen" type="date")
+			br
+			input(type="submit" name="addBird" value="Add new sighting")

@@ -10,7 +10,7 @@ var birdSchema = new Schema({
   name : String,
   description : String,
   averageEggsLaid : Number, //Handles both integer and floats
-  threatened : Boolean // Is bird vulnerable to extinction?
+  threatened : Boolean, // Is bird vulnerable to extinction?
   dateSeen : Date // Date spotted in the wild
 });
 
