@@ -96,4 +96,24 @@ router.post('/addDate', function (req, res, next) {
 	});
 });
 
+router.post('/deleteBird', function (req, res, next){ // This SEEMS to be working
+	Bird.findOne({name: req.body.name}, function(err, bird){
+		if (err){
+			return next(err);
+		}
+		//If no bird found, then send message to app error handler
+		if (!bird) {
+			return next(new Error('No bird found with name ' + req.body.name))
+		}
+		Bird.remove( { name : req.body.name }, function(err){
+			if (err){
+				return next(err);
+			}
+		});
+		//If no error, bird created. Redirect
+		res.status(201); //created
+		return res.redirect('/'); //get the home page
+	})
+});
+
 module.exports = router;
