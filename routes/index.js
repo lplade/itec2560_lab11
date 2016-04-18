@@ -51,7 +51,7 @@ router.post('/', function (req, res, next) {
 				req.flash('error', 'Invalid data'); // TODO more helpful error messages
 				return res.redirect('/');
 			}
-			//Hanlde duplcation errors. For our schema, we can't have two birds with
+			//Handle duplication errors. For our schema, we can't have two birds with
 			if (err.code == 11000) { //MongoDB duplicate key error
 				req.flash('error', 'A bird with that name already exists');
 				return res.redirect('/');
@@ -115,5 +115,21 @@ router.post('/deleteBird', function (req, res, next){ // This SEEMS to be workin
 		return res.redirect('/'); //get the home page
 	})
 });
+
+router.post('/editBird', function(req, res, next){
+	Bird.findOne({name: req.body.name}, function(err, birdDoc){
+		if (err){
+			return next(err);
+		}
+		if (!birdDoc) {
+			return next(new Error('No bird found with name ' + req.body.name))
+		}
+		return res.render('edit', {
+			bird: birdDoc,
+			error: req.flash('error')
+		});
+	})
+});
+
 
 module.exports = router;

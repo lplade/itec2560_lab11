@@ -1,0 +1,30 @@
+extends layout
+
+block content
+	h1 Edit bird record
+
+	if error
+		p #{error}
+
+	form(action='/', method='POST')
+		label Name (required)
+			input(name="name" type="text" value="#{bird.name}" required)
+		br
+		label Description
+			input(name="description" type="text" value="#{bird.description}")
+		br
+		label Average Eggs
+			input(name="averageEggsLaid" type="number" min="0" value="#{bird.averageEggsLaid}")
+		br
+		label Threatened?
+			input(name="threatened" type="checkbox" value="#{bird.threatened}")
+		br
+		label Nest location
+			input(name="location" type="text" value="#{bird.nestData.location}")
+		label Nest materials
+			input(name="materials" type="text" value="#{bird.nestData.materials}")
+		br
+		//label Date seen (required)
+		//	input(name="dateSeen" type="date" value="#{bird.dateSeen} required)
+		br
+		input(type="submit" name="editBird" value="Update sighting")

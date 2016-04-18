@@ -23,6 +23,10 @@ block content
 				input(name="name" value="#{bird.name}" type="hidden")
 				input(name="addDate" type="submit" value="Add new date")
 
+			form(action="/editBird", method="POST")
+				input(name="name" value="#{bird.name}" type="hidden")
+				input(type="submit" name="editBird" value="Edit this bird")
+
 			form(action="/deleteBird", method="POST")
 				input(name="name" value="#{bird.name}" type="hidden")
 				input(type="submit" name="deleteBird" value="Delete this bird")
