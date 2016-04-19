@@ -6,7 +6,7 @@ block content
 	if error
 		p #{error}
 
-	form(action='/', method='POST')
+	form(action='/updateBird', method='POST')
 		label Name (required)
 			input(name="name" type="text" value="#{bird.name}" required)
 		br
@@ -24,7 +24,8 @@ block content
 		label Nest materials
 			input(name="materials" type="text" value="#{bird.nestData.materials}")
 		br
+		//Editing the date array will be a little more involved
 		//label Date seen (required)
 		//	input(name="dateSeen" type="date" value="#{bird.dateSeen} required)
-		br
-		input(type="submit" name="editBird" value="Update sighting")
+		//br
+		input(type="submit" name="updateBird" value="Update sighting")

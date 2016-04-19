@@ -117,6 +117,7 @@ router.post('/deleteBird', function (req, res, next){ // This SEEMS to be workin
 });
 
 router.post('/editBird', function(req, res, next){
+	//This just populates the form for editing
 	Bird.findOne({name: req.body.name}, function(err, birdDoc){
 		if (err){
 			return next(err);
@@ -124,11 +125,66 @@ router.post('/editBird', function(req, res, next){
 		if (!birdDoc) {
 			return next(new Error('No bird found with name ' + req.body.name))
 		}
+		//TODO populates undefined fields with "undefined" we don't want that
 		return res.render('edit', {
 			bird: birdDoc,
 			error: req.flash('error')
 		});
 	})
+});
+
+// I think the right HTTP method is PUT, but that fails
+//TODO this creates duplicate record instead of replacing existing one
+//case sensitive?
+router.post('/updateBird', function(req,res,next) {
+	//This saves the modified form back to the DB
+	//same algo as addBird
+	for (var att in req.body) {
+		if (req.body[att] === '') {
+			delete(req.body[att]);
+		}
+	}
+	//TODO deal with the dates array
+	/*skip over the dates array for now
+	 console.log(req.body.datesSeen);
+	 var date = req.body.datesSeen || Date.now(); //s
+
+	 req.body.datesSeen = [];
+	 req.body.datesSeen.push(date);
+	 */
+
+	//Build nested nestData
+	req.body.nestData = {
+		'location': req.body.location,
+		'materials': req.body.materials
+	};
+
+	//Create new Bird object from req.body
+	var updatedSighting = Bird(req.body);
+	//And request that it is saved. Use callback to verify success
+	//or report error.
+	Bird.findOne({name: req.body.name}, function (err, bird) {
+		if (err) {
+			return next(err);
+		}
+		if (!bird) {
+			return next(new Error('No bird found with name ' + req.body.name))
+		}
+		updatedSighting.save(function (err) {
+			//Handle validation errors
+			if (err) {
+				if (err.name = "ValidationError") {
+					req.flash('error', 'Invalid data'); // TODO more helpful error messages
+					return res.redirect('/');
+				}
+				//Some other error - pass to app err
+				return next(err);
+			}
+			//If no error, bird updated. Redirect
+			res.status(200); //successful
+			return res.redirect('/'); //get the home page
+		});
+	});
 });
 
 
